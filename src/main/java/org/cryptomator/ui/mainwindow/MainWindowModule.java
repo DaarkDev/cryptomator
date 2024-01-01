@@ -40,7 +40,7 @@ abstract class MainWindowModule {
 	@MainWindowScoped
 	static Stage provideMainWindow(@PrimaryStage Stage stage, StageInitializer initializer) {
 		initializer.accept(stage);
-		stage.setTitle("Cryptomator");
+		stage.setTitle("Cryptomator Modified V1.0");
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setMinWidth(650);
 		stage.setMinHeight(440);

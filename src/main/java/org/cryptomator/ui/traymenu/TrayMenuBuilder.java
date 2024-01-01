@@ -71,7 +71,7 @@ public class TrayMenuBuilder {
 					case TrayIconLoader.PngData l -> l.loadPng(getAppropriateTrayIconImage());
 					case TrayIconLoader.FreedesktopIconName l -> l.lookupByName(getAppropriateFreedesktopIconName());
 				}
-			}, this::showMainWindow, "Cryptomator");
+			}, this::showMainWindow, "Cryptomator Modified V1.0");
 			trayMenu.onBeforeOpenMenu(() -> {
 				for (Vault vault : vaults) {
 					VaultListManager.redetermineVaultState(vault);

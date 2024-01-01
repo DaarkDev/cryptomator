@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cryptomator</groupId>
 	<artifactId>cryptomator</artifactId>
-	<version>1.12.0-SNAPSHOT</version>
+	<version>1.12.0-MF2</version>
 	<name>Cryptomator Desktop App</name>
 
 	<organization>
@@ -257,6 +257,50 @@
 			<version>${jetbrains.annotations.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- media -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-media</artifactId>
+			<version>17-ea+11</version>
+			<classifier>win</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-media</artifactId>
+			<version>17-ea+11</version>
+			<classifier>linux</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-media</artifactId>
+			<version>17-ea+11</version>
+			<classifier>mac</classifier>
+		</dependency>
+
+
+		<!-- graphics -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>17-ea+11</version>
+			<classifier>win</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>17-ea+11</version>
+			<classifier>linux</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>17-ea+11</version>
+			<classifier>mac</classifier>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -291,6 +335,40 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>${mvn-jar.version}</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<mainClass>org.cryptomator.launcher.Cryptomator</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>3.5.0</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>shade</goal>
+							</goals>
+							<configuration>
+								<transformers>
+									<transformer
+											implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+										<mainClass>org.cryptomator.launcher.Cryptomator</mainClass>
+									</transformer>
+								</transformers>
+								<artifactSet>
+									<includes>
+										<include>**</include>
+									</includes>
+								</artifactSet>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.jacoco</groupId>
@@ -322,18 +400,6 @@
 						<arg>-Adagger.formatGeneratedSource=enabled</arg>
 						<arg>--enable-preview</arg>
 					</compilerArgs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<!-- adds Implementation-Version which can be read during runtime -->
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-						</manifest>
-					</archive>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -404,6 +470,40 @@
 							<excludedGroups>org\.cryptomator</excludedGroups>
 							<licenseMergesUrl>file:///${project.basedir}/license/merges</licenseMergesUrl>
 							<fileTemplate>${project.basedir}/src/main/resources/license/template.ftl</fileTemplate>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${mvn-jar.version}</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>org.cryptomator.launcher.Cryptomator</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.5.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>org.cryptomator.launcher.Cryptomator</mainClass>
+								</transformer>
+							</transformers>
 						</configuration>
 					</execution>
 				</executions>

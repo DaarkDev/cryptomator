@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
 <HBox xmlns:fx="http://javafx.com/fxml"
 	  xmlns="http://javafx.com/javafx"
 	  fx:id="titleBar"
@@ -22,9 +23,7 @@
 		<Insets bottom="6" left="12" right="12" top="6"/>
 	</padding>
 	<children>
-		<ImageView HBox.hgrow="ALWAYS" fitHeight="14" preserveRatio="true" cache="true">
-			<Image url="@../img/title-logo.png"/>
-		</ImageView>
+		<Text HBox.hgrow="ALWAYS" cache="true" text="Cryptomator Modified V1.0"> </Text>
 
 		<Region HBox.hgrow="ALWAYS"/>
 

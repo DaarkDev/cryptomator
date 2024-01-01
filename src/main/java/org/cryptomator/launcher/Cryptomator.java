@@ -94,7 +94,12 @@ public class Cryptomator {
 		 * Attempts to create an IPC connection to a running Cryptomator instance and sends it the given args.
 		 * If no external process could be reached, the args will be handled by the loopback IPC endpoint.
 		 */
-		try (var communicator = IpcCommunicator.create(env.getIpcSocketPath().toList())) {
+
+		/*
+		 * Commented out following code to fix error: java.lang.IllegalArgumentException: socketPaths must contain at least one element
+		 */
+
+		/*try (var communicator = IpcCommunicator.create(env.getIpcSocketPath().toList())) {
 			if (communicator.isClient()) {
 				communicator.sendHandleLaunchargs(List.of(args));
 				communicator.sendRevealRunningApp();
@@ -112,7 +117,12 @@ public class Cryptomator {
 		} catch (Throwable e) {
 			LOG.error("Running application failed", e);
 			return 1;
-		}
+		}*/
+		var executor = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("IPC-%d").build());
+		var msgHandler = ipcMessageHandler.get();
+		msgHandler.handleLaunchArgs(List.of(args));
+		LOG.debug("Did not find running application instance. Launching GUI...");
+		return runGuiApplication();
 	}
 
 	/**
